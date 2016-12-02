@@ -1,7 +1,5 @@
 # Python 整理
 
----
-
 ### Python3 Official Documentation
 * [Python3 Document][6]
 
