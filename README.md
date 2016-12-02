@@ -1,6 +1,7 @@
 # Python 整理
 
 ---
+
 [Python Unicode UTF][1]
 [Dear with string and unicode][2]
 [PEP 8][3]
