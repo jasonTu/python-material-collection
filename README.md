@@ -2,11 +2,18 @@
 
 ---
 
-[Python Unicode UTF][1]
-[Dear with string and unicode][2]
-[PEP 8][3]
-[kwargs in python][4]
-[Python3 Document][6]
+### Python3 Official Documentation
+* [Python3 Document][6]
+
+### Coding Style
+* [PEP 8][3]
+
+### Encoding
+* [Python Unicode UTF][1]
+* [Dear with string and unicode][2]
+
+### Function Parameter
+* [kwargs in python][4]
 
 ### Decorate
 * [A guide to Python's function decorators][7]
