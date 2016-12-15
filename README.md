@@ -6,12 +6,21 @@
 ### Coding Style
 * [PEP 8][3]
 
+### IDE
+* [最全Pycharm教程（11）——Pycharm调试器之断点篇][40]
+
 ### Encoding
 * [Python Unicode UTF][1]
 * [Dear with string and unicode][2]
 
+### Sort
+* [Python中文排序][43]
+
 ### Function Parameter
 * [kwargs in python][4]
+
+### Gevent
+* [][]
 
 ### Decorate
 * [A guide to Python's function decorators][7]
@@ -44,8 +53,10 @@
 * [浅谈 Python 的 with 语句][37]
 * [PEP 343 -- The "with" Statement][38]
 
-### Inheritance
+### Class
 * [Python’s super() considered super!][39]
+* [Inheritance in Python][41]
+* [Difference between @staticmethod and @classmethod in Python][42]
 
 ### Variables, Refer, Copy and Scope
 * [python基础（5）：深入理解 python 中的赋值、引用、拷贝、作用域][23]
@@ -88,7 +99,6 @@
   - [Slice on speakerdeck][34]
   - [Video on Youtube][35]
 
-
 [1]: http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html
 [2]: http://python.jobbole.com/81244/
 [3]: https://www.python.org/dev/peps/pep-0008/
@@ -128,3 +138,7 @@
 [37]: https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/
 [38]: https://www.python.org/dev/peps/pep-0343/
 [39]: https://rhettinger.wordpress.com/2011/05/26/super-considered-super/
+[40]: http://blog.csdn.net/u013088062/article/details/50216015
+[41]: https://www.packtpub.com/books/content/inheritance-python
+[42]: http://pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/
+[43]: http://gerry.lamost.org/blog/?p=338
