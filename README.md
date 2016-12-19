@@ -6,6 +6,10 @@
 ### Coding Style
 * [PEP 8][3]
 
+### Python Data Model
+* [Python 2.X Data Model][49]
+* [Python 3.X Data Model][50]
+
 ### IDE
 * [最全Pycharm教程（11）——Pycharm调试器之断点篇][40]
 
@@ -18,9 +22,14 @@
 
 ### Function Parameter
 * [kwargs in python][4]
+* [Python: 函数参数魔法][46]
+* [PEP 3102 -- Keyword-Only Arguments][47]
 
-### Gevent
-* [][]
+### Gevent and Coroutines
+* [廖雪峰Gevent][44]
+* [gevent For the Working Python Developer][45]
+* [Tasks and coroutines][53]
+* [asyncio][54]
 
 ### Decorate
 * [A guide to Python's function decorators][7]
@@ -32,7 +41,10 @@
 
 ### Python Best Practice
 * [Python Best Practices by Lenoardo Maffi][10]
- 
+
+### enum
+* [enum — Support for enumerations][48]
+
 ### itertools
 * [Pythohn Documentation][9]
 
@@ -64,6 +76,10 @@
 
 ### Reference Count
 * [Python引用计数（Reference Count）][30]
+
+### Interpreter Procedure
+* [Be careful with exec and eval in Python][51]
+* [globals and locals in python exec()][52]
 
 ### How to Pythonic
 * [编写漂亮的，可读的Python代码的最佳时间][26]
@@ -98,6 +114,7 @@
 * PyCon2016
   - [Slice on speakerdeck][34]
   - [Video on Youtube][35]
+
 
 [1]: http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html
 [2]: http://python.jobbole.com/81244/
@@ -142,3 +159,14 @@
 [41]: https://www.packtpub.com/books/content/inheritance-python
 [42]: http://pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/
 [43]: http://gerry.lamost.org/blog/?p=338
+[44]: http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001407503089986d175822da68d4d6685fbe849a0e0ca35000
+[45]: http://sdiehl.github.io/gevent-tutorial/
+[46]: http://python.jobbole.com/86938/
+[47]: https://www.python.org/dev/peps/pep-3102/
+[48]: https://docs.python.org/3/library/enum.html
+[49]: https://docs.python.org/2/reference/datamodel.html
+[50]: https://docs.python.org/3/reference/datamodel.html
+[51]: http://lucumr.pocoo.org/2011/2/1/exec-in-python/
+[52]: http://stackoverflow.com/questions/2904274/globals-and-locals-in-python-exec
+[53]: https://docs.python.org/3/library/asyncio-task.html#asyncio.sleep
+[54]: http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432090954004980bd351f2cd4cc18c9e6c06d855c498000
