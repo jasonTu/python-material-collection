@@ -1,0 +1,472 @@
+= 版易、Rays平台集成API
+
+
+[[_overview]]
+== Overview
+这是版易和Rays系统集成交互API文档
+
+
+=== Version information
+[%hardbreaks]
+__Version__ : 1.0.0
+
+
+=== Contact information
+[%hardbreaks]
+__Contact Email__ : jason_tu@puyacn.com
+
+
+=== License information
+[%hardbreaks]
+__License__ : Apache 2.0
+__License URL__ : http://www.apache.org/licenses/LICENSE-2.0.html
+__Terms of service__ : null
+
+
+=== URI scheme
+[%hardbreaks]
+__Host__ : virtserver.swaggerhub.com
+__BasePath__ : /api/v1
+__Schemes__ : HTTPS
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_getbookbyid]]
+=== 获取单本书籍信息书籍信息
+....
+GET /books/{book_id}/
+....
+
+
+==== Description
+根据书籍唯一标识返回书籍详细信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**book_id** +
+__required__|书籍唯一标识|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|书籍信息|<<_book,Book>>
+|**401**|鉴权问题|<<_errormodel,ErrorModel>>
+|**403**|操作被禁止|<<_errormodel,ErrorModel>>
+|**404**|所对应书籍不存在|<<_errormodel,ErrorModel>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Security
+
+[options="header", cols=".^3,.^4"]
+|===
+|Type|Name
+|**apiKey**|**<<_aws4_hmac_sha256,AWS4_HMAC_SHA256>>**
+|===
+
+
+[[_getreaderbybid]]
+=== 获取读者详细信息
+....
+GET /readers/{user_id}/
+....
+
+
+==== Description
+根据用户唯一标识获取读者详细信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**user_id** +
+__required__|用户唯一标识|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|读者详细信息|<<_readers,Readers>>
+|**401**|鉴权问题|<<_errormodel,ErrorModel>>
+|**403**|操作被禁止|<<_errormodel,ErrorModel>>
+|**404**|所对应书籍不存在|<<_errormodel,ErrorModel>>
+|===
+
+
+==== Security
+
+[options="header", cols=".^3,.^4"]
+|===
+|Type|Name
+|**apiKey**|**<<_aws4_hmac_sha256,AWS4_HMAC_SHA256>>**
+|===
+
+
+[[_getqrscannedinfobybid]]
+=== 获取书籍二维码扫码信息
+....
+GET /scanevents/{book_id}/
+....
+
+
+==== Description
+根据书籍唯一标识和时间段参数返回书籍二维码扫码信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**book_id** +
+__required__|书籍唯一标识|string
+|**Query**|**end_time** +
+__required__|截止时间（时间戳）|integer(int64)
+|**Query**|**start_time** +
+__required__|开始时间（时间戳）|integer(int64)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|基于某个时间段的二维码扫码数据： 1.返回的结果均处在开始和截止时间内；2.边界数据完整，不得漏传数据|<<_qrscanevents,QrScanEvents>>
+|**401**|鉴权问题|<<_errormodel,ErrorModel>>
+|**403**|操作被禁止|<<_errormodel,ErrorModel>>
+|**404**|所对应书籍不存在|<<_errormodel,ErrorModel>>
+|===
+
+
+==== Security
+
+[options="header", cols=".^3,.^4"]
+|===
+|Type|Name
+|**apiKey**|**<<_aws4_hmac_sha256,AWS4_HMAC_SHA256>>**
+|===
+
+
+[[_gettransactionsbybid]]
+=== 获取书籍相关交易数据
+....
+GET /transactions/{book_id}/
+....
+
+
+==== Description
+根据书籍唯一标识获取书籍基于某个时间段的交易数据
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**book_id** +
+__required__|书籍唯一标识|integer
+|**Query**|**end_time** +
+__optional__|截止时间（时间戳）|integer(int64)
+|**Query**|**start_time** +
+__optional__|开始时间（时间戳）|integer(int64)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|基于某个时间的交易数据： 1.返回的结果均处在开始和截止时间内；2.边界数据完整，不得漏传数据|<<_transactions,Transactions>>
+|**401**|鉴权问题|<<_errormodel,ErrorModel>>
+|**403**|操作被禁止|<<_errormodel,ErrorModel>>
+|**404**|所对应书籍不存在|<<_errormodel,ErrorModel>>
+|===
+
+
+==== Security
+
+[options="header", cols=".^3,.^4"]
+|===
+|Type|Name
+|**apiKey**|**<<_aws4_hmac_sha256,AWS4_HMAC_SHA256>>**
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_book]]
+=== Book
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**author** +
+__optional__|作者|string
+|**categories** +
+__optional__|书籍所属分类|< <<_category,Category>> > array
+|**character_count** +
+__optional__|书籍字数|integer
+|**id** +
+__optional__|书籍ID|string
+|**isbn** +
+__optional__|书籍ISBN号|string
+|**name** +
+__optional__|书籍名称|string
+|**price** +
+__optional__|书籍售价|number(double)
+|**print_times** +
+__optional__|第几次印刷|integer
+|**publish_count** +
+__optional__|出版册数|integer
+|**publish_time** +
+__optional__|出版时间|string
+|**publisher** +
+__optional__|出版社|string
+|**qrcodes** +
+__optional__|二维码信息|< <<_qrcode,QrCode>> > array
+|**thumb** +
+__optional__|书籍缩略图|string(url)
+|===
+
+
+[[_category]]
+=== Category
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**id** +
+__optional__|类别ID|string
+|**name** +
+__optional__|类别名称|string
+|===
+
+
+[[_errormodel]]
+=== ErrorModel
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**code** +
+__optional__|错误码|integer
+|**msg** +
+__optional__|错误描述|string
+|===
+
+
+[[_location]]
+=== Location
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**latitude** +
+__optional__|纬度|integer(double)
+|**longitude** +
+__optional__|经度|integer(double)
+|===
+
+
+[[_qrcode]]
+=== QrCode
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**created_time** +
+__optional__|二维码创建时间（时间戳）|integer(int64)
+|**desc** +
+__optional__|二维码描述|string
+|**id** +
+__optional__|二维码ID|string
+|**resources** +
+__optional__|二维码对应资源|< <<_qrresource,QrResource>> > array
+|**tags** +
+__optional__|二维码标签|< <<_qrtag,QrTag>> > array
+|**title** +
+__optional__|二维码名称|string
+|**url** +
+__optional__|二维码URL|string(url)
+|===
+
+
+[[_qrresource]]
+=== QrResource
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**desc** +
+__optional__|资源描述|string
+|**id** +
+__optional__|资源ID|string
+|**thumb** +
+__optional__|资源缩略图|string(url)
+|**title** +
+__optional__|资源标题|string
+|**type** +
+__optional__|资源类型|string
+|**url** +
+__optional__|资源URL|string(url)
+|===
+
+
+[[_qrscanevent]]
+=== QrScanEvent
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**location** +
+__optional__||<<_location,Location>>
+|**qr_id** +
+__optional__|二维码ID|string
+|**time** +
+__optional__|扫描时间（时间戳）|integer(int64)
+|**user_id** +
+__optional__|用户唯一标识|string
+|===
+
+
+[[_qrscanevents]]
+=== QrScanEvents
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**end_time** +
+__optional__|截止时间（时间戳）|integer(int64)
+|**results** +
+__optional__|二维码扫描事件集|< <<_qrscanevent,QrScanEvent>> > array
+|**start_time** +
+__optional__|起始时间（时间戳）|integer(int64)
+|===
+
+
+[[_qrtag]]
+=== QrTag
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**id** +
+__optional__|标签ID|string
+|**name** +
+__optional__|标签名称|string
+|===
+
+
+[[_reader]]
+=== Reader
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**avater** +
+__optional__|用户头像URL|string(url)
+|**gender** +
+__optional__|用户性别|string
+|**nickname** +
+__optional__|用户昵称|string
+|**province** +
+__optional__|用户所在省份|string
+|**user_id** +
+__optional__|用户唯一标识|string
+|**username** +
+__optional__|用户名|string
+|===
+
+
+[[_readers]]
+=== Readers
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**end_time** +
+__optional__|截止时间（时间戳）|integer(int64)
+|**results** +
+__optional__|读者信息集|< <<_reader,Reader>> > array
+|**start_time** +
+__optional__|起始时间（时间戳）|integer(int64)
+|===
+
+
+[[_transaction]]
+=== Transaction
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**amount** +
+__optional__|交易金额|integer(double)
+|**id** +
+__optional__|交易ID|string
+|**qr_id** +
+__optional__|二维码ID|string
+|**resource_id** +
+__optional__|交易相关资源|string
+|**time** +
+__optional__|交易时间（时间戳）|integer(int64)
+|**user_id** +
+__optional__|用户唯一标识|string
+|===
+
+
+[[_transactions]]
+=== Transactions
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**end_time** +
+__optional__|截止时间（时间戳）|integer(int64)
+|**results** +
+__optional__|交易信息集|< <<_transaction,Transaction>> > array
+|**start_time** +
+__optional__|起始时间（时间戳）|integer(int64)
+|===
+
+
+
+
+[[_securityscheme]]
+== Security
+
+[[_aws4_hmac_sha256]]
+=== AWS4_HMAC_SHA256
+[%hardbreaks]
+__Type__ : apiKey
+__Name__ : api_key
+__In__ : HEADER
+
+
+
