@@ -3,6 +3,9 @@
 ### Python3 Official Documentation
 * [Python3 Document][6]
 
+## Differences between Python2 and Python3
+* [What is the difference between Python 2.x and Python 3.x?][55]
+
 ### Coding Style
 * [PEP 8][3]
 
@@ -170,3 +173,4 @@
 [52]: http://stackoverflow.com/questions/2904274/globals-and-locals-in-python-exec
 [53]: https://docs.python.org/3/library/asyncio-task.html#asyncio.sleep
 [54]: http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432090954004980bd351f2cd4cc18c9e6c06d855c498000
+[55]: https://www.quora.com/What-is-the-difference-between-Python-2-x-and-Python-3-x
