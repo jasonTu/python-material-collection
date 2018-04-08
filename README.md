@@ -3,6 +3,9 @@
 ### Python Materials
 * [Python之美][57]
 
+### Python Design Pattern
+* [http://www.pythontip.com/pythonPatterns/][58]
+
 ### Python3 Official Documentation
 * [Python3 Document][6]
 
@@ -180,3 +183,4 @@
 [55]: https://www.quora.com/What-is-the-difference-between-Python-2-x-and-Python-3-x
 [56]: https://docs.python.org/3/library/sys.html
 [57]: https://zhuanlan.zhihu.com/python-cn
+[58]: http://www.pythontip.com/pythonPatterns/
