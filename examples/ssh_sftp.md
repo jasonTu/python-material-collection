@@ -128,3 +128,53 @@ dir(sftp)
 ```python
 sftp.mkdir('/tmp/remote_mk_dir')
 ```
+
+
+```python
+ssh = paramiko.SSHClient()
+```
+
+
+```python
+ssh.load_system_host_keys()  
+```
+
+
+```python
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+```
+
+
+```python
+ssh.connect(hostname='192.168.1.153', port=50001, username='root', password='puyacn#1..')  
+```
+
+
+```python
+stdin, stdout, stderr = ssh.exec_command('ls') 
+```
+
+
+```python
+stdout
+```
+
+
+
+
+    <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0x60144f98 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+
+
+
+```python
+print(stdout.read())
+```
+
+    b'anaconda-ks.cfg\ninstall.log\ninstall.log.syslog\nPython-3.6.5\nPython-3.6.5.tar.xz\nwebshell-sample-master\nwebshell-sample-master.zip\n'
+
+
+
+```python
+ssh.close()
+```
