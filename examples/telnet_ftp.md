@@ -68,9 +68,14 @@ tn.read_until(b'>', 2)
 
 
 
-    b'C:\\Users\\xman>'
+    b''
 
 
+
+
+```python
+tn.write(b'suspects_uploader.bat 192.168.1.55 E:\web_dir\r\n')
+```
 
 
 ```python
