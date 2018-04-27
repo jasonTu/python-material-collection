@@ -1,5 +1,5 @@
 
-## Pthonic Code in Practice
+## Pythonic Code in Practice
 此文章收集平时工作中一些Pythonic code，以供后面参考。
 
 ### 循环结束处理
