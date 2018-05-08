@@ -1,5 +1,8 @@
 # Python 整理
 
+### Advanced Topic
+* [Hiden features of Python][59]
+
 ### Python Materials
 * [Python之美][57]
 
@@ -184,3 +187,4 @@
 [56]: https://docs.python.org/3/library/sys.html
 [57]: https://zhuanlan.zhihu.com/python-cn
 [58]: http://www.pythontip.com/pythonPatterns/
+[59]: https://stackoverflow.com/questions/101268/hidden-features-of-python
