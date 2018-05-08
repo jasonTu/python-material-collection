@@ -102,6 +102,7 @@
 
 ### Descriptor
 * [Python描述符（descriptor）解密][27]
+* [Descriptor HowTo Guide][60]
 
 ### Memory Mangement
 * [theano: Python Memory Management][13]
@@ -188,3 +189,4 @@
 [57]: https://zhuanlan.zhihu.com/python-cn
 [58]: http://www.pythontip.com/pythonPatterns/
 [59]: https://stackoverflow.com/questions/101268/hidden-features-of-python
+[60]: https://media.readthedocs.org/pdf/python/latest/python.pdf
