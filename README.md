@@ -111,6 +111,7 @@
 * [Improving Python's Memory Allocator][18]
 * [CBDoctor: python的内存管理机制][14]
 * [Vamei: Python深入06 Python的内存管理][15]
+* [Python内存管理机制及优化简析][61]
 
 ### Extending Python with C or C++
 * [Extending Python with C or C++][19]
@@ -190,3 +191,4 @@
 [58]: http://www.pythontip.com/pythonPatterns/
 [59]: https://stackoverflow.com/questions/101268/hidden-features-of-python
 [60]: https://media.readthedocs.org/pdf/python/latest/python.pdf
+[61]: https://blog.csdn.net/it_yuan/article/details/52850270
