@@ -38,11 +38,14 @@
 * [Python: 函数参数魔法][46]
 * [PEP 3102 -- Keyword-Only Arguments][47]
 
-### Gevent and Coroutines
+### Concurrency
 * [廖雪峰Gevent][44]
 * [gevent For the Working Python Developer][45]
 * [Tasks and coroutines][53]
 * [asyncio][54]
+* [使用Python进行并发编程-asyncio篇(一)][62]
+* [使用Python进行并发编程-asyncio篇(二)][63]
+* [使用Python进行并发编程-asyncio篇(三)][64]
 
 ### Decorate
 * [A guide to Python's function decorators][7]
@@ -192,3 +195,6 @@
 [59]: https://stackoverflow.com/questions/101268/hidden-features-of-python
 [60]: https://media.readthedocs.org/pdf/python/latest/python.pdf
 [61]: https://blog.csdn.net/it_yuan/article/details/52850270
+[62]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87/
+[63]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87-%E4%BA%8C/
+[64]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87-%E4%B8%89/
