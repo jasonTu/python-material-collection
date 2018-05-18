@@ -46,6 +46,7 @@
 * [使用Python进行并发编程-asyncio篇(一)][62]
 * [使用Python进行并发编程-asyncio篇(二)][63]
 * [使用Python进行并发编程-asyncio篇(三)][64]
+* [用 Python 3 的 async / await 做异步编程][65]
 
 ### Decorate
 * [A guide to Python's function decorators][7]
@@ -198,3 +199,4 @@
 [62]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87/
 [63]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87-%E4%BA%8C/
 [64]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87-%E4%B8%89/
+[65]: http://python.jobbole.com/88427/
