@@ -9,8 +9,9 @@
 ### Python Design Pattern
 * [http://www.pythontip.com/pythonPatterns/][58]
 
-### Python3 Official Documentation
+### Python 3 && Python 2
 * [Python3 Document][6]
+* [编程语言 - Python 3 新特性介绍][66]
 
 ### Differences between Python2 and Python3
 * [What is the difference between Python 2.x and Python 3.x?][55]
@@ -200,3 +201,4 @@
 [63]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87-%E4%BA%8C/
 [64]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87-%E4%B8%89/
 [65]: http://python.jobbole.com/88427/
+[66]: http://ialloc.org/posts/2018/01/01/into-python3/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
