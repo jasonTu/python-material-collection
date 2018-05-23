@@ -134,6 +134,9 @@
 * PyCon2016
   - [Slice on speakerdeck][34]
   - [Video on Youtube][35]
+  
+### HTTP
+* [关于HTTP协议，一篇就够了][67]
 
 
 [1]: http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html
@@ -202,3 +205,4 @@
 [64]: http://www.dongwm.com/archives/%E4%BD%BF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-asyncio%E7%AF%87-%E4%B8%89/
 [65]: http://python.jobbole.com/88427/
 [66]: http://ialloc.org/posts/2018/01/01/into-python3/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+[67]: https://www.cnblogs.com/ranyonsue/p/5984001.html
