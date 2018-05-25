@@ -1,5 +1,8 @@
 # Python 整理
 
+### Python Visual Tutor
+* [Python Tutor Visual Code][68]
+
 ### Advanced Topic
 * [Hiden features of Python][59]
 
@@ -206,3 +209,4 @@
 [65]: http://python.jobbole.com/88427/
 [66]: http://ialloc.org/posts/2018/01/01/into-python3/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
 [67]: https://www.cnblogs.com/ranyonsue/p/5984001.html
+[68]: http://www.pythontutor.com/visualize.html#mode=edit
