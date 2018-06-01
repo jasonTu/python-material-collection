@@ -136,6 +136,49 @@ octers
 
 
 
+bytes和bytearray的区别：
+* bytes不可变
+* bytearray可变
+
+
+```python
+b = bytes('人生苦短，我用Python', encoding='utf-8')
+b
+```
+
+
+
+
+    b'\xe4\xba\xba\xe7\x94\x9f\xe8\x8b\xa6\xe7\x9f\xad\xef\xbc\x8c\xe6\x88\x91\xe7\x94\xa8Python'
+
+
+
+
+```python
+br = bytearray(b)
+br
+```
+
+
+
+
+    bytearray(b'\xe4\xba\xba\xe7\x94\x9f\xe8\x8b\xa6\xe7\x9f\xad\xef\xbc\x8c\xe6\x88\x91\xe7\x94\xa8Python')
+
+
+
+
+```python
+br[-1] = ord('N')
+br.decode('utf-8')
+```
+
+
+
+
+    '人生苦短，我用PythoN'
+
+
+
 ## Structs and Memory Views
 
 
@@ -612,7 +655,7 @@ s1, s2
 
 
 
-    ('café', 'café')
+    ('café', 'café')
 
 
 
