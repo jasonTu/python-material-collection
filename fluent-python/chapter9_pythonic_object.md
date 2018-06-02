@@ -247,7 +247,7 @@ class Vector2d:
     # No self argument; instead, the class itself is passed as cls.
     def frombytes(cls, octets):
         typecode = chr(octets[0])
-        memv = memoryview(octets[1:].cast(typecode))
+        memv = memoryview(octets[1:]).cast(typecode)
         return cls(*memv)
     
     # Example 9.5: implements __format__ to produce the displays just shown
@@ -526,7 +526,7 @@ class Vector2d:
     # No self argument; instead, the class itself is passed as cls.
     def frombytes(cls, octets):
         typecode = chr(octets[0])
-        memv = memoryview(octets[1:].cast(typecode))
+        memv = memoryview(octets[1:]).cast(typecode)
         return cls(*memv)
     
     def angle(self):
@@ -787,7 +787,7 @@ class Vector2d:
     @classmethod
     def frombytes(cls, octets):
         typecode = chr(octets[0])
-        memv = memoryview(octets[1:].cast(typecode))
+        memv = memoryview(octets[1:]).cast(typecode)
         return cls(*memv)
     
     def angle(self):
