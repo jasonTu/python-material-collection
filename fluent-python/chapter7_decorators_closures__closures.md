@@ -446,16 +446,63 @@ avg(10)
 
     UnboundLocalError                         Traceback (most recent call last)
 
-    <ipython-input-53-ace390caaa2e> in <module>()
+    <ipython-input-8-ace390caaa2e> in <module>()
     ----> 1 avg(10)
     
 
-    <ipython-input-51-f94b29bf899a> in averager(new_value)
-          5 
+    <ipython-input-6-c66e79ff10ae> in averager(new_value)
           6     def averager(new_value):
-    ----> 7         count += 1
-          8         total += new_value
-          9         return total / count
+          7         # The problem is: below statement count += 1 actually means count = count + 1, when count is immutable type
+    ----> 8         count += [1]
+          9         total += [new_value]
+         10         return total / count
+
+
+    UnboundLocalError: local variable 'count' referenced before assignment
+
+
+
+```python
+# Example 7-13: A broken higher-order function to calculate a running average without keeping all history
+def make_averager():
+    count = [0]
+    total = [0]
+    
+    def averager(new_value):
+        # 即使count和total是可变类型，也人仍然会有上述问题，原因是count在执行count += [1]的时候，由于该表达式是一个赋值操作，
+        # 所以会在该函数作用域中创建一个count变量，然而它是自增操作，count同时被引用和被赋值，故报异常，
+        # 暂时没发现与可变或不可变类型有更深入的关系
+        count += [1]
+        total += [new_value]
+        return total / count
+    return averager
+```
+
+
+```python
+avg = make_averager()
+```
+
+
+```python
+avg(10)
+```
+
+
+    ---------------------------------------------------------------------------
+
+    UnboundLocalError                         Traceback (most recent call last)
+
+    <ipython-input-18-ace390caaa2e> in <module>()
+    ----> 1 avg(10)
+    
+
+    <ipython-input-16-d7498f901fe2> in averager(new_value)
+          8         # 所以会在该函数作用域中创建一个count变量，然而它是自增操作，count同时被引用和被赋值，故报异常，
+          9         # 暂时没发现与可变或不可变类型有更深入的关系
+    ---> 10         count += [1]
+         11         total += [new_value]
+         12         return total / count
 
 
     UnboundLocalError: local variable 'count' referenced before assignment
