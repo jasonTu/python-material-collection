@@ -1,5 +1,8 @@
 # Python 整理
 
+### String Format
+* [python 字符串格式化][69]
+
 ### Python Visual Tutor
 * [Python Tutor Visual Code][68]
 
@@ -51,6 +54,8 @@
 * [使用Python进行并发编程-asyncio篇(二)][63]
 * [使用Python进行并发编程-asyncio篇(三)][64]
 * [用 Python 3 的 async / await 做异步编程][65]
+* [Python黑魔法 --- 异步IO（ asyncio） 协程][70]
+* [Python-aiohttp百万并发][71]
 
 ### Decorate
 * [A guide to Python's function decorators][7]
@@ -210,3 +215,6 @@
 [66]: http://ialloc.org/posts/2018/01/01/into-python3/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
 [67]: https://www.cnblogs.com/ranyonsue/p/5984001.html
 [68]: http://www.pythontutor.com/visualize.html#mode=edit
+[69]: https://www.cnblogs.com/xxby/p/5571620.html
+[70]: http://python.jobbole.com/87310/
+[71]: https://www.cnblogs.com/DjangoBlog/p/5783125.html
