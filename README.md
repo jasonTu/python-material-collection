@@ -97,8 +97,8 @@
 * [Difference between @staticmethod and @classmethod in Python][42]
 
 ### Variables, Refer, Copy and Scope
-* [python基础（5）：深入理解 python 中的赋值、引用、拷贝、作用域][23]
-* [Python命名空间和作用域窥探][32]
+* [python基础（5）：深入理解 python 中的赋值、引用、拷贝、作用域][23] (***)
+* [Python命名空间和作用域窥探][32] （*****）
 
 ### Reference Count
 * [Python引用计数（Reference Count）][30]
