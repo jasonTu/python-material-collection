@@ -1,5 +1,8 @@
 # Python 整理
 
+### Python Runtime
+* [谈谈 Python 程序的运行原理][72]
+
 ### String Format
 * [python 字符串格式化][69]
 
@@ -218,3 +221,4 @@
 [69]: https://www.cnblogs.com/xxby/p/5571620.html
 [70]: http://python.jobbole.com/87310/
 [71]: https://www.cnblogs.com/DjangoBlog/p/5783125.html
+[72]: http://www.cnblogs.com/restran/p/4903056.html
