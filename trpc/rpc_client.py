@@ -3,6 +3,9 @@ import json
 import struct
 import socket
 import asyncio
+import multiprocessing
+
+G_PROCESS = []
 
 
 async def rpc(sock, in_, params):
@@ -31,17 +34,15 @@ def main(t_num):
     loop.run_until_complete(asyncio.wait(tasks))
 
 
-def prefork(p_num):
+def prefork(p_num, t_num):
     for i in range(p_num):
-        pid = os.fork()
-        if pid < 0:
-            return
-        if pid > 0:
-            continue
-        if pid == 0:
-            break
+        p = multiprocessing.Process(target=main, args=(t_num, ))
+        G_PROCESS.append(p)
+        p.start()
 
 
 if __name__ == '__main__':
-    prefork(50)
-    main(100)
+    prefork(50, 100)
+
+    for p in G_PROCESS:
+        p.join()
