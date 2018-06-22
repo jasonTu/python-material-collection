@@ -720,7 +720,7 @@ t[2] += [50, 60]
 
     TypeError                                 Traceback (most recent call last)
 
-    <ipython-input-76-0d38463e151b> in <module>()
+    <ipython-input-1-0d38463e151b> in <module>()
           1 # Example 2-14
           2 t = (1, 2, [30, 40])
     ----> 3 t[2] += [50, 60]
@@ -740,6 +740,30 @@ t
     (1, 2, [30, 40, 50, 60])
 
 
+
+
+```python
+import dis
+dis.dis('s[a] += b')
+```
+
+      1           0 LOAD_NAME                0 (s)
+                  2 LOAD_NAME                1 (a)
+                  4 DUP_TOP_TWO
+                  6 BINARY_SUBSCR
+                  8 LOAD_NAME                2 (b)
+                 10 INPLACE_ADD
+                 12 ROT_THREE
+                 14 STORE_SUBSCR
+                 16 LOAD_CONST               0 (None)
+                 18 RETURN_VALUE
+
+
+ 6 BINARY_SUBSCR --> Put the value of s[a] on TOS (Top Of Stack).  ok
+ 
+10 INPLACE_ADD   --> Perform TOS += b. This succeeds if TOS refers to a mutable object.  ok
+
+14 STORE_SUBSCR  --> Assign s[a] = TOS. This fails if s is immutable.  fail
 
 ## List.sort and the sorted Built-in Function
 The list.sort method sorts a list in place. It returns None to remind us that it changes the target object, and does not create a new list.
