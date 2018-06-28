@@ -82,6 +82,7 @@
 
 ### Regular Expression
 * [Python re Documentation][24]
+* [Python正则表达式指南][73]
 
 ### Operator Overloading
 * [Python Standard operators as function][25]
@@ -222,3 +223,4 @@
 [70]: http://python.jobbole.com/87310/
 [71]: https://www.cnblogs.com/DjangoBlog/p/5783125.html
 [72]: http://www.cnblogs.com/restran/p/4903056.html
+[73]: https://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html
