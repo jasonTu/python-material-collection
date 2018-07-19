@@ -25,6 +25,9 @@
 ### Differences between Python2 and Python3
 * [What is the difference between Python 2.x and Python 3.x?][55]
 
+### Django
+* [Django使用旧的数据库][74]
+
 ### Coding Style
 * [PEP 8][3]
 
@@ -224,3 +227,4 @@
 [71]: https://www.cnblogs.com/DjangoBlog/p/5783125.html
 [72]: http://www.cnblogs.com/restran/p/4903056.html
 [73]: https://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html
+[74]: https://blog.csdn.net/afxcontrolbars/article/details/52788299
