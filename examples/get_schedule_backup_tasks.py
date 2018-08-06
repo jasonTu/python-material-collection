@@ -1,3 +1,5 @@
+import re
+import time
 import json
 from datetime import datetime
 
@@ -9,10 +11,59 @@ class DBUtils:
             from src.database import DatabaseMgr
             from src.database import ConnectionMgr
             con = ConnectionMgr.Connection('/etc/skynet/skynet-env.ini')
-            storageConnection = con.getProfileStorage()
-            self.storage = DatabaseMgr.RDSMgrNoPool(storageConnection)
+            storage_conn = con.getProfileStorage()
+            self.storage = DatabaseMgr.RDSMgrNoPool(storage_conn)
+            session_conn = self.get_session_storage(con)
+            self.session_storage = DatabaseMgr.RDSMgrNoPool(session_conn)
         except:
             pass
+
+    def get_session_storage(self, conn):
+        address = '{dialect}+{driver}://{user}:{password}@{host}/{dbname}'
+        dialect = conn.config.getValue('SessionDB', 'DB_DIALECT')
+        driver = conn.config.getValue('SessionDB', 'DB_DRIVER')
+        user = conn.config.getValue('SessionDB', 'DB_ACCOUNT')
+        password = conn.config.getValue('SessionDB', 'DB_PASSWORD')
+        host = conn.config.getValue('SessionDB', 'DB_HOST')
+        dbname = conn.config.getValue('SessionDB', 'DB_DBNAME')
+        return address.format(
+            dialect=dialect, driver=driver, user=user, password=password,
+            host=host, dbname=dbname
+        )
+
+    def get_online_session_info(self):
+        '''
+        session_data sample:
+        SESSION_CLIENT_REAL_IP|s:13:"10.64.194.133";IsUserLoggedIn|b:1;IsSSO|b:0;
+        mode|i:0;userId|s:15:"admin@cloud.com";userName|s:15:"admin@cloud.com";
+        email|s:15:"admin@cloud.com";companyId|s:5:"cloud";
+        timeZone|s:13:"Asia/Shanghai";isReadOnly|b:0;companyName|s:5:"cloud";
+        deviceType|s:6:"CE100C";language|s:5:"en_US";
+        CSRFT|s:128:"d5c7cdcc81f665dca736f889c28337db44c004d168456c29821924dd7336db529ec42ef934ec08ae114a594420b6fbc392248d6f613af34a36f170ac8864f951";
+        UserName|s:15:"admin@cloud.com";CompanyName|s:5:"cloud";
+        CompanyId|s:5:"cloud";uniqueid|s:32:"0b390f201bd8883695abe0bb8ad1252a";
+        uid|s:1:"1";
+        '''
+        ret = []
+        sql = 'select session_data, session_expiry from session'
+        result_list = self.session_storage.engine.execute(sql).fetchall()
+        return result_list
+
+    def online_analysis_session_info(self):
+        reg_username = r'UserName\|s:(\d{1,2}):"(?P<username>.*?)"'
+        reg_comid = r'CompanyId\|s:(\d{1,2}):"(?P<comid>.*?)"'
+        ts_now = int(time.time())
+        result_list = self.get_online_session_info()
+        for item in result_list:
+            session_data, session_expiry = item[0], item[1]
+            username_ret = re.search(reg_username, session_data)
+            if ts_now > session_expiry:
+                print('Expired, session_expiry: %d, ts_now: %d' % (session_expiry, ts_now))
+            if username_ret:
+                print(username_ret.group('username'))
+            comid_ret = re.search(reg_comid, session_data)
+            if comid_ret:
+                print(comid_ret.group('comid'))
 
     def get_all_schedule_bakcups(self):
         ret = []
@@ -78,4 +129,6 @@ class DBUtils:
 
 if __name__ == '__main__':
     dbut = DBUtils()
-    dbut.offline_analysis('updatingSettings.json')
+    # dbut.online_analysis()
+    # dbut.offline_analysis('updatingSettings.json')
+    dbut.online_analysis_session_info()
