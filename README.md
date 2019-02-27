@@ -43,6 +43,7 @@
 * [Dear with string and unicode][2]
 * [sys — System-specific parameters and functions][56]
 * [Python2.7字符编码详解][75]
+* [Python2.7字符编码详解：作业部落][77]
 * [Python2中的编码错误][76]
 
 ### Sort
@@ -232,3 +233,4 @@
 [74]: https://blog.csdn.net/afxcontrolbars/article/details/52788299
 [75]: https://www.cnblogs.com/clover-toeic/p/5291787.html
 [76]: https://www.zybuluo.com/zwenqiang/note/21851
+[77]: https://www.zybuluo.com/cloverwang/note/305937
