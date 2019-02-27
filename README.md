@@ -42,6 +42,8 @@
 * [Python Unicode UTF][1]
 * [Dear with string and unicode][2]
 * [sys — System-specific parameters and functions][56]
+* [Python2.7字符编码详解][75]
+* [Python2中的编码错误][76]
 
 ### Sort
 * [Python中文排序][43]
@@ -228,3 +230,5 @@
 [72]: http://www.cnblogs.com/restran/p/4903056.html
 [73]: https://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html
 [74]: https://blog.csdn.net/afxcontrolbars/article/details/52788299
+[75]: https://www.cnblogs.com/clover-toeic/p/5291787.html
+[76]: https://www.zybuluo.com/zwenqiang/note/21851
