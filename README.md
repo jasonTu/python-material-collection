@@ -1,5 +1,8 @@
 # Python 整理
 
+## Python Test
+* [Code coverage measurement for Python][78]
+
 ### Python Runtime
 * [谈谈 Python 程序的运行原理][72]
 
@@ -234,3 +237,4 @@
 [75]: https://www.cnblogs.com/clover-toeic/p/5291787.html
 [76]: https://www.zybuluo.com/zwenqiang/note/21851
 [77]: https://www.zybuluo.com/cloverwang/note/305937
+[78]: https://github.com/nedbat/coveragepy
