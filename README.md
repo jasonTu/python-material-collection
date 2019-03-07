@@ -49,6 +49,7 @@
 * [Python2.7字符编码详解：作业部落][77]
 * [Python2中的编码错误][76]
 * [Python Unicode: Encode and Decode Strings (in Python 2.x)][79]
+* [Unicode HOWTO][80]
 
 ### Sort
 * [Python中文排序][43]
@@ -240,3 +241,4 @@
 [77]: https://www.zybuluo.com/cloverwang/note/305937
 [78]: https://github.com/nedbat/coveragepy
 [79]: https://www.pythoncentral.io/python-unicode-encode-decode-strings-python-2x/
+[80]: https://docs.python.org/2/howto/unicode.html
