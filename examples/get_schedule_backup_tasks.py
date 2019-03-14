@@ -83,9 +83,10 @@ class DBUtils:
             fp.write(json.dumps(all_data, indent=2))
         return ret
 
-    def get_active_schedule_backups(self, backups, hour):
+    def get_active_schedule_backups(self, backups, hour, date=None):
         act_backups = []
-        now = datetime.now()
+        date = datetime.now() if not date else date
+        print('Schedule backups will run at %d-%d-%d' %(date.year, date.month, date.day))
         for back in backups:
             company_id = back.keys()[0]
             settings = back[company_id]
@@ -95,10 +96,10 @@ class DBUtils:
                 if run_hour == hour:
                     act_backups.append(back)
             elif settings['Frequency'] == 'weekly':
-                if run_date == now.weekday() and run_hour == hour:
+                if run_date == date.weekday() and run_hour == hour:
                     act_backups.append(back)
             elif settings['Frequency'] == 'monthly':
-                if run_date == now.day and run_hour == hour:
+                if run_date == date.day and run_hour == hour:
                     act_backups.append(back)
         return act_backups
 
@@ -117,18 +118,20 @@ class DBUtils:
                 ret.append({company_id: bk_obj})
         return ret
 
-    def online_analysis(self):
+    def online_analysis(self, date=None):
         data = self.get_online_bk_data()
-        return self.get_active_schedule_backups(data, 10)
+        for i in range(24):
+            print i, self.get_active_schedule_backups(data, 10, date)
 
-    def offline_analysis(self, file_path):
+    def offline_analysis(self, file_path, date=None):
         data = self.get_offline_bk_data(file_path)
         for i in range(24):
-            print i, self.get_active_schedule_backups(data, i)
+            print i, self.get_active_schedule_backups(data, i, date)
 
 
 if __name__ == '__main__':
+    date = datetime(2018, 8, 11)
     dbut = DBUtils()
-    # dbut.online_analysis()
-    # dbut.offline_analysis('updatingSettings.json')
-    dbut.online_analysis_session_info()
+    # dbut.online_analysis(date)
+    dbut.offline_analysis('updatingSettings.json', date)
+    # dbut.online_analysis_session_info()
