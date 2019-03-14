@@ -1,5 +1,8 @@
 # Python 整理
 
+## Python Test
+* [Code coverage measurement for Python][78]
+
 ### Python Runtime
 * [谈谈 Python 程序的运行原理][72]
 
@@ -42,6 +45,11 @@
 * [Python Unicode UTF][1]
 * [Dear with string and unicode][2]
 * [sys — System-specific parameters and functions][56]
+* [Python2.7字符编码详解][75]
+* [Python2.7字符编码详解：作业部落][77]
+* [Python2中的编码错误][76]
+* [Python Unicode: Encode and Decode Strings (in Python 2.x)][79]
+* [Unicode HOWTO][80]
 
 ### Sort
 * [Python中文排序][43]
@@ -228,3 +236,9 @@
 [72]: http://www.cnblogs.com/restran/p/4903056.html
 [73]: https://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html
 [74]: https://blog.csdn.net/afxcontrolbars/article/details/52788299
+[75]: https://www.cnblogs.com/clover-toeic/p/5291787.html
+[76]: https://www.zybuluo.com/zwenqiang/note/21851
+[77]: https://www.zybuluo.com/cloverwang/note/305937
+[78]: https://github.com/nedbat/coveragepy
+[79]: https://www.pythoncentral.io/python-unicode-encode-decode-strings-python-2x/
+[80]: https://docs.python.org/2/howto/unicode.html
