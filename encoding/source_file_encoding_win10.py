@@ -1,0 +1,7 @@
+# coding: gbk
+
+a = 'ÖÐ¹ú'
+print a
+
+b = '\xd6\xd0\xb9\xfa'
+print b

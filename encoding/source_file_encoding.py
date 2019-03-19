@@ -1,4 +1,4 @@
-# coding: utf-8
+# coding: gbk
 
 a = '中国'
 print a
