@@ -245,4 +245,4 @@
 [79]: https://www.pythoncentral.io/python-unicode-encode-decode-strings-python-2x/
 [80]: https://docs.python.org/2/howto/unicode.html
 [81]: http://malexandre.fr/2017/10/08/mocking-redis--expiration-in-python/
-[82}; https://pypi.org/project/mockcache/
+[82]: https://pypi.org/project/mockcache/
