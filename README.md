@@ -2,6 +2,7 @@
 
 ## Python Test
 * [Code coverage measurement for Python][78]
+* [Mocking Redis & Expiration in Python][81]
 
 ### Python Runtime
 * [谈谈 Python 程序的运行原理][72]
@@ -242,3 +243,4 @@
 [78]: https://github.com/nedbat/coveragepy
 [79]: https://www.pythoncentral.io/python-unicode-encode-decode-strings-python-2x/
 [80]: https://docs.python.org/2/howto/unicode.html
+[81]: http://malexandre.fr/2017/10/08/mocking-redis--expiration-in-python/
