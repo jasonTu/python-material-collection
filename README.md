@@ -1,5 +1,9 @@
 # Python 整理
 
+## Third Party Tools
+* [Python-使用jmespath来格式化处理json数据][83]
+* [JMESPath is a query language for JSON: official site][84]
+
 ## Python Test
 * [Code coverage measurement for Python][78]
 * [Mocking Redis & Expiration in Python][81]
@@ -246,3 +250,5 @@
 [80]: https://docs.python.org/2/howto/unicode.html
 [81]: http://malexandre.fr/2017/10/08/mocking-redis--expiration-in-python/
 [82]: https://pypi.org/project/mockcache/
+[83]: https://blog.csdn.net/qq_29027865/article/details/84345273
+[84]: http://jmespath.org/
