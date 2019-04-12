@@ -3,6 +3,7 @@ import requests
 
 sess = requests.Session()
 host = '10.206.67.88'
+uid = '63a0328d-897e-4a90-bfcd-9a480eb3ad38'
 login_url = 'https://{}:4343/officescan/console/html/cgi/cgiChkMasterPwd.exe'.format(host)
 
 data = {
@@ -23,7 +24,7 @@ data = {
     'chkTypeScanNow': '1',
     'chkStatusStopped': '1',
     'chkStatusInterrupted': '1',
-    'uid': '63a0328d-897e-4a90-bfcd-9a480eb3ad38',
+    'uid': uid,
     'id': '12953'
 }
 print data
@@ -46,7 +47,7 @@ data = {
     'optTime': 1,
     'optRange': 3,
     'chkTypeManual': 1,
-    'uid': '63a0328d-897e-4a90-bfcd-9a480eb3ad38',
+    'uid': uid,
     'id': 12954,
     'Ticket': ticket
 }
@@ -61,7 +62,7 @@ data = {
     'chkTypeScanNow': 1,
     'chkStatusStopped': 1,
     'chkStatusInterrupted': 1,
-    'uid': '63a0328d-897e-4a90-bfcd-9a480eb3ad38',
+    'uid': 'uid',
     'id': 12954,
     'Ticket': ticket
 }

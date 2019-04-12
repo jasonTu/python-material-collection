@@ -37,12 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cron',
+    # 'django_cron',
+    'django_crontab',
+    'cronapp'
 ]
 
-CRON_CLASSES = [
-    'cronapp.cron.MyCronJob'
+CRONJOBS = [
+    ('*/1 * * * *', 'cronapp.mycron.test_cron', '> /tmp/mycron.log')
 ]
+
+# CRON_CLASSES = [
+#     'cronapp.cron.MyCronJob'
+# ]
 
 
 MIDDLEWARE = [

@@ -1,3 +1,5 @@
+import os
+import uuid
 from django_cron import CronJobBase, Schedule
 
 class MyCronJob(CronJobBase):
@@ -9,3 +11,5 @@ class MyCronJob(CronJobBase):
 
     def do(self):
         print('I am running')
+        fid = uuid.uuid4()
+        os.system('touch /tmp/{}.txt'.format(fid))
