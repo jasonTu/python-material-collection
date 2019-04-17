@@ -32,7 +32,7 @@ resp = sess.post(url, data=data, verify=False)
 print resp.status_code
 print resp.content
 
-ticket = str(resp.json()['REQUEST_TICKET'])
+ticket = resp.json()['REQUEST_TICKET']
 data = {
     'id': '12122',
     'Ticket': ticket
@@ -62,7 +62,7 @@ data = {
     'chkTypeScanNow': 1,
     'chkStatusStopped': 1,
     'chkStatusInterrupted': 1,
-    'uid': 'uid',
+    'uid': uid,
     'id': 12954,
     'Ticket': ticket
 }
