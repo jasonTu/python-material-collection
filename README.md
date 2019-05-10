@@ -87,6 +87,7 @@
 
 ### Python Best Practice
 * [Python Best Practices by Lenoardo Maffi][10]
+* [The Hitchhiker’s Guide to Python!][85]
 
 ### enum
 * [enum — Support for enumerations][48]
@@ -252,3 +253,4 @@
 [82]: https://pypi.org/project/mockcache/
 [83]: https://blog.csdn.net/qq_29027865/article/details/84345273
 [84]: http://jmespath.org/
+[85}; https://docs.python-guide.org/
