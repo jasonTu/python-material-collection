@@ -39,7 +39,7 @@ def get_tasks(tnum):
             cursor.execute(sql)
             datas = cursor.fetchall()
             # print(datas)
-            G_CONN.commit()
+            # G_CONN.commit()
             if datas[-1][0] == 50000:
                 all_done = int(time.time())
                 with open('/tmp/alert_mark.txt', 'a') as fp:
@@ -132,5 +132,5 @@ if __name__ == '__main__':
     # init_alert_db()
     print(int(time.time()))
     # get_tasks(10)
-    # main(5)
-    main_mq(5)
+    main(5)
+    # main_mq(5)
