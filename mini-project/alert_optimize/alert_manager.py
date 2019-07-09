@@ -7,6 +7,9 @@ import pymysql
 import multiprocessing
 
 
+G_RESULT_FILE = '/tmp/alert_mark.txt'
+
+
 def init_alert_db():
     G_CONN = pymysql.connect(
         host='10.206.67.81', port=3306, user='root',
@@ -30,19 +33,19 @@ def get_tasks(tnum):
         passwd='Trend#1..', db='alert_opt'
     )
     cursor = G_CONN.cursor()
-    sql_f = 'select * from alert where update_time < {} order by id asc limit {}'
+    sql_f = 'select * from alert where update_time < {} order by id asc limit {} for update'
     update_sql_f = 'update alert set update_time={} where id in ({})'
     while True:
         ts_now = int(time.time())
         sql = sql_f.format(ts_now, tnum)
+        # print(sql)
         try:
             cursor.execute(sql)
             datas = cursor.fetchall()
             # print(datas)
-            # G_CONN.commit()
             if datas[-1][0] == 50000:
                 all_done = int(time.time())
-                with open('/tmp/alert_mark.txt', 'a') as fp:
+                with open(G_RESULT_FILE, 'a') as fp:
                     fp.write('Explore done for all records: {}\n'.format(all_done))
             ids = [str(item[0]) for item in datas]
             update_sql = update_sql_f.format(ts_now+300, ','.join(ids))
@@ -54,11 +57,12 @@ def get_tasks(tnum):
             G_CONN.rollback()
             time.sleep(10)
     cursor.close()
+    G_CONN.close()
 
 
 def main(pnum):
     p_list = []
-    for i in range(5):
+    for i in range(pnum):
         p = multiprocessing.Process(target=get_tasks, args=(10,))
         p_list.append(p)
     for item in p_list:
@@ -78,15 +82,19 @@ def generate_task_mq():
         passwd='Trend#1..', db='alert_opt'
     )
     cursor = G_CONN.cursor()
-    sql_f = 'select * from alert where update_time < {} order by id asc'
+    sql_f = 'select * from alert where update_time < {} order by id asc for update'
     ts_now = int(time.time())
     sql = sql_f.format(ts_now)
+    print(sql)
     cursor.execute(sql)
     data = cursor.fetchall()
     for item in data:
         channel.basic_publish(
             exchange='', routing_key='balance', body=json.dumps(item)
         )
+    update_sql = 'update alert set update_time={}'.format(ts_now)
+    print(update_sql)
+    cursor.execute(update_sql)
     G_CONN.commit()
     cursor.close()
     G_CONN.close()
@@ -121,7 +129,7 @@ def main_mq(pnum):
     generate_task_mq()
     # get_tasks_mq()
     p_list = []
-    for i in range(5):
+    for i in range(pnum):
         p = multiprocessing.Process(target=get_tasks_mq)
         p_list.append(p)
     for item in p_list:
@@ -130,7 +138,9 @@ def main_mq(pnum):
 
 if __name__ == '__main__':
     # init_alert_db()
-    print(int(time.time()))
-    # get_tasks(10)
-    main(5)
-    # main_mq(5)
+    begin_time = int(time.time())
+    with open(G_RESULT_FILE, 'a') as fp:
+        fp.write('Begin Explore done for all records: {}\n'.format(begin_time))
+    print(begin_time)
+    # main(1)
+    main_mq(1)
