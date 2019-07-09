@@ -19,13 +19,13 @@ class Task:
 
 async def check_offline(ck_time):
     status = G_REDIS.hget('offline', 'jason')
-    print(status)
+    # print(status)
     await asyncio.sleep(ck_time)
 
 
 async def check_cms_status(ck_time):
     status = G_REDIS.hget('cms_status', 'jason')
-    print(status)
+    # print(status)
     await asyncio.sleep(ck_time)
 
 
@@ -46,7 +46,7 @@ class AdminAlertConsumer:
         self.task_num = task_num
 
     def get_tasks(self, number=100):
-        url = 'http://10.206.67.81:8080/?token=8fb577d5b90d54d1d2c036274792d8449f7359e520dca18c'
+        url = 'http://10.206.66.73'
         return [Task(ccca_domain=url) for i in range(number)]
 
     def get_run_tasks(self, session):
@@ -72,7 +72,10 @@ async def main():
 
 
 def do_main():
+    # asyncio.run(main(), debug=True)
     asyncio.run(main())
+    # print('Another async start...')
+    # asyncio.run(main())
 
 
 if __name__ == '__main__':

@@ -1,6 +1,10 @@
 # coding: utf-8
 import time
+import redis
 import requests
+
+
+G_REDIS = redis.Redis(host='10.206.66.79', port=6379, db=0)
 
 
 class Task:
@@ -9,6 +13,16 @@ class Task:
         self.check_offline_time = check_offline_time
         self.check_cms_time = check_cms_time
         self.ccca_domain = ccca_domain
+
+
+def check_offline(ck_time):
+    status = G_REDIS.hget('offline', 'jason')
+    time.sleep(ck_time)
+
+
+def check_cms_status(ck_time):
+    status = G_REDIS.hget('cms_status', 'jason')
+    time.sleep(ck_time)
 
 
 class AdminAlertConsumer:
@@ -26,8 +40,8 @@ class AdminAlertConsumer:
         for item in range(0, self.task_num, tasks_num):
             self.curr_tasks = self.get_tasks(tasks_num)
             for task in self.curr_tasks:
-                time.sleep(float(task.check_offline_time/1000))
-                time.sleep(float(task.check_cms_time/1000))
+                check_offline(float(task.check_offline_time/1000))
+                check_cms_status(float(task.check_cms_time/1000))
                 resp = requests.get(task.ccca_domain)
                 # print(len(resp.content))
         print(f"After do tasks {time.strftime('%X')}")
