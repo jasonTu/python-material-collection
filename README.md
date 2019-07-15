@@ -76,6 +76,8 @@
 * [用 Python 3 的 async / await 做异步编程][65]
 * [Python黑魔法 --- 异步IO（ asyncio） 协程][70]
 * [Python-aiohttp百万并发][71]
+* [深入理解asyncio(一)][86]
+* [深入理解asyncio(二)][87]
 
 ### Decorate
 * [A guide to Python's function decorators][7]
@@ -253,4 +255,6 @@
 [82]: https://pypi.org/project/mockcache/
 [83]: https://blog.csdn.net/qq_29027865/article/details/84345273
 [84]: http://jmespath.org/
-[85}; https://docs.python-guide.org/
+[85]: https://docs.python-guide.org/
+[86]: https://zhuanlan.zhihu.com/p/72887901
+[87]: https://zhuanlan.zhihu.com/p/73568282
