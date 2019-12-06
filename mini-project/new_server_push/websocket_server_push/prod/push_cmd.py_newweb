@@ -1,0 +1,331 @@
+#!/usr/bin/env python
+import os, sys, string, random, datetime
+from itertools import islice, imap, repeat
+import urllib2, httplib
+import json
+import time
+import slogging as logging
+import ConfigParser
+import traceback
+import ssl
+
+DEVREG_PUSH_SERVER     = '{host}'
+ICS_PUSH_SERVER_API = 'http://{host}:{port}/DevAPI/V1.0/push_icscmd'
+ENABLE_CMS          = False
+CMS_PUSH_SERVER_API = 'http://{host}:{port}/DevAPI/V1.0/push_cmscmd'
+QUERY_DEVINFO_API      = 'http://{host}:{port}/devmgmt/v1.0/device'
+OPTION_LONG_POLLING_IP = 'long_polling_instance_ip'
+DEPLOY_ENV             = '{env}'
+ssl._create_default_https_context = ssl._create_unverified_context
+
+def rand_token(length = 32):
+    chars = set(string.ascii_letters + string.digits)
+    char_gen = (c for c in imap(os.urandom, repeat(1)) if c in chars)
+    return ''.join(islice(char_gen, None, length))
+
+
+def push_devcmd(device_guid, push_server_ip, cmd, param, getresp_timeout = 30):
+    """Push command by nginx-push-stream module using websocket."""
+    prefix_id = str(rand_token(8))
+    logging.debug('Enter push_devcmd. device is %s, prefix_id is %s, push_server is %s, cmd is %s', device_guid, prefix_id, push_server_ip, cmd)
+    push_count = 0
+    # Push command to devices
+    while push_count < 3:
+        push_count += 1
+        opener = urllib2.build_opener() 
+        try:
+            url = 'http://' + push_server_ip + '/broadcast/pub?channel=' + device_guid
+            command = json.dumps({
+                'callback_name' : cmd,
+                'callback_data' : param,
+                'prefix_id' : prefix_id,
+                'guid': device_guid,
+                'instance_ip' : push_server_ip
+            })
+            result = opener.open(url, command)
+            push_module_resp = json.loads(result.read())
+            logging.debug('request is send, did: %r server response is %s', device_guid, str(push_module_resp))
+        except Exception:
+            logging.exception('Push command fail, device is %s', device_guid)
+            # Return push command error.
+            if push_count == 3:
+                return {'error_msg' : 'push cmd server error', 'error_code' : '21', 'succeed' : False}
+            time.sleep(1)
+            continue
+
+    # Get command response from device
+    if getresp_timeout == 0:
+        logging.debug('set response timeout 0, no need to wait for response of dev')
+        return {'succeed' : True, 'response' : {'msg' : 'no need wait for cmd  response'}}
+
+    try:
+        url = 'wss://{}/broadcast/sub?channel=' + device_guid + prefix_id
+        if DEPLOY_ENV == 'AWS':
+            subconn = httplib.HTTPConnection(push_server_ip, timeout=getresp_timeout)
+        else:
+            subconn = httplib.HTTPConnection(push_server_ip, timeout=getresp_timeout)
+        subconn.request('GET', '/broadcast/sub?channel=' + device_guid + prefix_id)
+        resp = subconn.getresponse()
+        resp_data = json.loads(resp.read())
+        logging.debug('response body length is %s', len(resp_data))
+        subconn.close()
+    except Exception, e:
+        logging.error(traceback.format_exc())
+        logging.error('device is not in its pushcmd response channel, device_id %r,res_count is %s',device_guid, str(res_count))
+        if res_count > 1:
+            return {'succeed' : False, 'error_code' : '35', 'error_msg' : 'device is not in its pushcmd response channel'}
+        else:
+            time.sleep(5)
+            continue
+
+    return {'succeed' : True, 'response' : resp_data}
+
+
+    prefix_id = str(rand_token(8))
+    logging.debug('Enter push_devcmd. device is %s, prefix_id is %s, push_server is %s, cmd is %s', device_guid, prefix_id, push_server_ip, cmd)
+    res_count = 0
+    while 1:
+        res_count += 1
+        count = 0
+        while count < 3:
+            count += 1
+
+            opener = urllib2.build_opener() 
+            try:
+                if DEPLOY_ENV == 'AWS':
+                    result = opener.open('http://' + push_server_ip + '/broadcast/pub?channel=' + \
+                        device_guid, json.dumps({'callback_name' : cmd, 'callback_data' : param, \
+                            'prefix_id' : prefix_id, 'guid' : device_guid, 'instance_ip' : push_server_ip}))
+                else:
+                    result = opener.open('http://' + push_server_ip + '/broadcast/pub?channel=' + \
+                        device_guid, json.dumps({'callback_name' : cmd, 'callback_data' : param, \
+                            'prefix_id' : prefix_id, 'guid' : device_guid, 'instance_ip' : push_server_ip}))
+
+            except Exception, e:
+                    logging.error(traceback.format_exc())
+                #return 'push msg error.'
+                    if count == 3:
+                        return {'error_msg' : 'push cmd server error', 'error_code' : '21', 'succeed' : False}
+                    time.sleep(1)
+                    continue
+
+            push_module_resp = json.loads(result.read())
+            logging.debug('request is send, the cmd message will store this guid channel in 300s. did:%r server response is %s',device_guid, str(push_module_resp))
+            if str(push_module_resp['subscribers']) == '0':
+                logging.info('no active subscribers in this channel,did:%r, retry times is %s', device_guid,str(count))
+                if count == 3:
+                    logging.error('device is: %s, prefix_id is %s, cmd is %s, not in its guid channel', device_guid, prefix_id, cmd)
+                    return {'error_code' : '35', 'error_msg' : 'device is not in its guid channel now', 'succeed' : False}
+                else:
+                    time.sleep(2)
+                    continue
+            else:
+                logging.debug('device subscribe its guid channel')
+                break
+    ##we can verify if there is a longpolling request from device by result
+
+    #######################################################################
+        if getresp_timeout == 0:
+            logging.debug('set response timeout 0, no need to wait for response of dev')
+            return {'succeed' : True, 'response' : {'msg' : 'no need wait for cmd  response'}}
+
+        try:
+        #set timeout 30 seconds
+        #subconn = httplib.HTTPConnection(push_server_ip, timeout=getresp_timeout)
+            if DEPLOY_ENV == 'AWS':
+                subconn = httplib.HTTPConnection(push_server_ip, timeout=getresp_timeout)
+            else:
+                subconn = httplib.HTTPConnection(push_server_ip, timeout=getresp_timeout)
+            subconn.request('GET', '/broadcast/sub?channel=' + device_guid + prefix_id)
+            resp = subconn.getresponse()
+            resp_data = json.loads(resp.read())
+            logging.debug('response body length is %s', len(resp_data))
+            subconn.close()
+        except Exception, e:
+            logging.error(traceback.format_exc())
+            logging.error('device is not in its pushcmd response channel, device_id %r,res_count is %s',device_guid, str(res_count))
+            if res_count > 1:
+                return {'succeed' : False, 'error_code' : '35', 'error_msg' : 'device is not in its pushcmd response channel'}
+            else:
+                time.sleep(5)
+                continue
+
+        return {'succeed' : True, 'response' : resp_data}
+
+
+def push_icscmd(company_guid, cmd, param, ics_agent_ip = None, getresp_timeout = 30):
+    if getresp_timeout == 0:
+        getresp_timeout = 30
+    opener = urllib2.build_opener() 
+    try:
+        result = opener.open(ICS_PUSH_SERVER_API, json.dumps({'cmd' : cmd, 'data' : param, \
+                'company_guid' : company_guid, 'ics_agent_ip' : ics_agent_ip, 'timeout' : getresp_timeout}), timeout=getresp_timeout)
+        resp_data = json.loads(result.read())
+        if resp_data.has_key('error_code'):
+            resp_data.update({'succeed' : False})
+            return resp_data
+
+        return {'succeed' : True, 'response' : resp_data}
+
+    except Exception, e:
+        logging.error(traceback.format_exc())
+        return {'error_code' : '21', 'error_msg' : 'push ics cmd server error', 'succeed' : False}
+
+def push_cmscmd(company_guid, cmd, param, cms_agent_ip = None, getresp_timeout = 30):
+    if getresp_timeout == 0:
+        getresp_timeout = 30
+    opener = urllib2.build_opener() 
+    try:
+        result = opener.open(CMS_PUSH_SERVER_API, json.dumps({'cmd' : cmd, 'data' : param, \
+                'company_guid' : company_guid, 'cms_agent_ip' : cms_agent_ip, 'timeout' : getresp_timeout}), timeout=getresp_timeout)
+        resp_data = json.loads(result.read())
+        logging.debug("push_cmscmd resp_data:" + json.dumps(resp_data))
+        if resp_data.has_key('error_code'):
+            resp_data.update({'succeed' : False})
+            return resp_data
+
+        return {'succeed' : True, 'response' : resp_data}
+
+    except Exception, e:
+        logging.error(traceback.format_exc())
+        return {'error_code' : '21', 'error_msg' : 'push cms cmd server error', 'succeed' : False}
+        
+'''
+    --== Inputs ==--
+        deviceguid as String
+        cmd as String
+        param as dict
+        timeout as int
+        
+    --== Outpus ==--
+        return is always a dict object (NOT a string)
+        
+        on succeed, dict object is
+        {
+            "succeed" : True,
+            "response" : ... client response object ... can be None, string, int, list, dict, .... etc
+        }
+        
+        on failure, dict object is
+        {
+            "succeed" : False,
+            "error_code" : "str"  (error code is string)
+            "error_msg" : "str"
+        }
+'''
+def push_cmd(id, cmd, param, res_timeout = 30):
+    try:
+        opener = urllib2.build_opener()
+        result = opener.open(QUERY_DEVINFO_API+'?id=' + str(id), timeout=30)
+        devinfo_dict = json.loads(result.read())
+    except Exception, e:
+        logging.error(traceback.format_exc())
+        return {'error_code' : '45', 'error_msg' : 'get dev info error', 'succeed' : False}
+
+    if 'error_code' in devinfo_dict:
+        logging.error('get dev info error')
+        return {'error_code' : '45', 'error_msg' : 'get dev info error', 'succeed' : False}
+    
+    if devinfo_dict['Type'] == 'ICSCOMPANY':
+        logging.debug('input id is company guid')
+        try:
+            ics_agent_ip = devinfo_dict['home_dc']
+        except Exception, e:
+            logging.error('get ics agent ip failed')
+            ics_agent_ip = None
+        return push_icscmd(id, cmd, param, ics_agent_ip, res_timeout)
+        
+    elif devinfo_dict['Type'] == 'ICS':
+        try:
+            ics_agent_ip = devinfo_dict['home_dc']
+        except Exception, e:
+            logging.error('get ics agent ip failed')
+            ics_agent_ip = None
+        return push_icscmd(devinfo_dict['CompanyID'], cmd, param, ics_agent_ip, res_timeout)
+    elif devinfo_dict['Type'] == 'CMS':
+        try:
+            cms_agent_ip = devinfo_dict['home_dc']
+        except Exception, e:
+            logging.error('get cms agent ip failed')
+            cms_agent_ip = None
+        return push_cmscmd(devinfo_dict['CompanyID'], cmd, param, cms_agent_ip, res_timeout)
+
+    else:
+        try:
+            instance_ip = devinfo_dict[OPTION_LONG_POLLING_IP]
+        except Exception, e:
+            instance_ip = None
+
+        if not instance_ip:
+            instance_ip = DEVREG_PUSH_SERVER
+        return push_devcmd(id, instance_ip, cmd, param, res_timeout)
+
+
+"""
+    return False if load failed. 
+"""
+def automation_setting():
+    skynet_ini = '/etc/skynet/skynet-env.ini'
+    try:
+        config = ConfigParser.ConfigParser()
+        config.readfp(open(skynet_ini, 'rb'))
+    except Exception, e:
+        logging.exception('cannot open configuration file %s', skynet_ini)
+        return False
+     
+    try:
+        host = config.get('DevRegMgmtRole', 'ROLE_HOST')   
+    except Exception, e:
+        logging.exception('cannot read option skynet-env.ini -> [DevRegMgmtRole] -> ROLE_HOST')
+        return False
+        
+    try:
+        port = config.get('DevRegMgmtRole', 'ROLE_PORT')   
+    except Exception, e:
+        logging.exception('cannot read option skynet-env.ini -> [DevRegMgmtRole] -> ROLE_PORT')
+        return False
+
+    try:
+        deploy_env = config.get('Roles', 'DEPLOY_ENV')   
+    except Exception, e:
+        logging.exception('cannot read option skynet-env.ini -> [Roles] -> DEPLOY_ENV')
+        return False
+    global ENABLE_CMS
+    try:
+        ENABLE_CMS = config.get('DevRegMgmtRole', 'ENABLE_CMS') == '1'
+    except Exception, e:
+        logging.exception('cannot read option skynet-env.ini -> [Roles] -> DEPLOY_ENV')
+        return False
+
+    set_server_address(host, port, deploy_env)
+    return True
+
+
+def set_server_address(host, port, env):
+    port = str(port)
+
+    global DEVREG_PUSH_SERVER
+    DEVREG_PUSH_SERVER = DEVREG_PUSH_SERVER.replace('{host}', host)
+    DEVREG_PUSH_SERVER = DEVREG_PUSH_SERVER.replace('{port}', port)
+    
+    global ICS_PUSH_SERVER_API
+    ICS_PUSH_SERVER_API = ICS_PUSH_SERVER_API.replace('{host}', host)
+    ICS_PUSH_SERVER_API = ICS_PUSH_SERVER_API.replace('{port}', port)
+
+    global CMS_PUSH_SERVER_API
+    CMS_PUSH_SERVER_API = CMS_PUSH_SERVER_API.replace('{host}', host)
+    CMS_PUSH_SERVER_API = CMS_PUSH_SERVER_API.replace('{port}', port)
+    
+    global QUERY_DEVINFO_API
+    QUERY_DEVINFO_API = QUERY_DEVINFO_API.replace('{host}', host)
+    QUERY_DEVINFO_API = QUERY_DEVINFO_API.replace('{port}', port)
+
+    global DEPLOY_ENV
+    DEPLOY_ENV = DEPLOY_ENV.replace('{env}', env)
+    
+
+if __name__ == '__main__':
+    set_server_address('10.64.69.221', '8081')
+    print push_cmd('3be529f4-e9b5-4a23-ba21-56efa02ad4e4', 'policy_deploy', {'param1' : 'test_param'})
+    print push_cmd('3be529f4-e9b5-4a23-ba21-56efa02ad4e4', 'test_cmd', {'param1' : 'test_param'})
+    #print push_icscmd('xxcompany.com', 'deploypolicy', {'param1' : 'test_param'})
