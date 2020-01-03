@@ -1,0 +1,474 @@
+<!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px
+}
+
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/maps.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="jquery-3.4.1.js"></script>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+  window.onload = function() {
+
+
+  var defaultMap = "japanLow";
+  var currentMap = defaultMap;
+  var title = "Japan";
+  var chart = am4core.create("chartdiv", am4maps.MapChart);
+  chart.titles.create().text = title;
+
+  // Get registered box number from backend service
+  var box_distribution = [
+      ["Tokyo", 11532, 35.6747, 139.5966],
+      [
+            "Saitama",
+            2517,
+            35.9182,
+            139.7851
+        ],
+        [
+            "Kanagawa",
+            2697,
+            35.431,
+            139.6489
+        ],
+        [
+            "Hiroshima",
+            615,
+            34.4787,
+            132.7055
+        ],
+        [
+            "Tennessee",
+            1,
+            35.9698,
+            -86.5061
+        ],
+        [
+            "Fukuoka",
+            845,
+            33.5357,
+            130.4088
+        ],
+        [
+            "Taipei City",
+            7,
+            25.0478,
+            121.5318
+        ],
+        [
+            "Hokkaido",
+            1625,
+            42.4016,
+            143.1499
+        ],
+        [
+            "Tochigi",
+            500,
+            36.3583,
+            139.8375
+        ],
+        [
+            "Hy\u014dgo",
+            1041,
+            34.7235,
+            135.2957
+        ],
+        [
+            "Fukushima-ken",
+            446,
+            37.7864,
+            140.3885
+        ],
+        [
+            "Miyagi",
+            474,
+            38.5433,
+            141.1051
+        ],
+        [
+            "Chiba",
+            1643,
+            35.7234,
+            139.9449
+        ],
+        [
+            "Aichi",
+            1889,
+            35.1992,
+            137.2852
+        ],
+        [
+            "Niigata",
+            713,
+            37.9852,
+            139.2944
+        ],
+        [
+            "Nagano",
+            620,
+            36.6461,
+            138.2419
+        ],
+        [
+            "Okinawa",
+            177,
+            26.368,
+            127.8321
+        ],
+        [
+            "Nara",
+            322,
+            34.6179,
+            135.5914
+        ],
+        [
+            "Tokushima",
+            178,
+            34.1726,
+            134.4489
+        ],
+        [
+            "Kyoto",
+            535,
+            34.9857,
+            135.8403
+        ],
+        [
+            "Wakayama",
+            195,
+            34.0616,
+            135.1675
+        ],
+        [
+            "Iwate",
+            263,
+            39.6053,
+            141.263
+        ],
+        [
+            "Shizuoka",
+            670,
+            35.1397,
+            139.0764
+        ],
+        [
+            "Shiga",
+            236,
+            34.958,
+            135.9071
+        ],
+        [
+            "Mie",
+            315,
+            34.7132,
+            136.4463
+        ],
+        [
+            "Akita",
+            152,
+            40.1836,
+            140.7872
+        ],
+        [
+            "Okayama",
+            360,
+            34.613,
+            134.1387
+        ],
+        [
+            "Ibaraki",
+            609,
+            35.9841,
+            140.0093
+        ],
+        [
+            "Gunma",
+            522,
+            36.3613,
+            139.236
+        ],
+        [
+            "Yamaguchi",
+            307,
+            33.9298,
+            130.9241
+        ],
+        [
+            "Yamagata",
+            186,
+            38.2892,
+            140.3028
+        ],
+        [
+            "Yamanashi",
+            268,
+            35.7833,
+            138.4167
+        ],
+        [
+            "Saga",
+            178,
+            33.3452,
+            130.2577
+        ],
+        [
+            "Gifu",
+            333,
+            35.3833,
+            136.5833
+        ],
+        [
+            "Aomori",
+            146,
+            40.6071,
+            141.2191
+        ],
+        [
+            "Kagawa",
+            169,
+            34.3447,
+            133.8856
+        ],
+        [
+            "Seine-Saint-Denis",
+            1,
+            48.8864,
+            2.4339
+        ],
+        [
+            "Shimane",
+            60,
+            35.4498,
+            133.0435
+        ],
+        [
+            "Miyazaki",
+            118,
+            32.0525,
+            131.317
+        ],
+        [
+            "Kumamoto",
+            386,
+            32.8347,
+            130.7281
+        ],
+        [
+            "Fukui",
+            149,
+            35.9713,
+            136.178
+        ],
+        [
+            "Kochi",
+            133,
+            33.6,
+            133.6833
+        ],
+        [
+            "Ishikawa",
+            269,
+            36.528,
+            136.7346
+        ],
+        [
+            "Toyama",
+            205,
+            36.6137,
+            137.0399
+        ],
+        [
+            "Kagoshima",
+            193,
+            31.5592,
+            130.5337
+        ],
+        [
+            "Ehime",
+            236,
+            33.6373,
+            132.6304
+        ],
+        [
+            "Nagasaki",
+            209,
+            33.1041,
+            129.8601
+        ],
+        [
+            "Tottori",
+            87,
+            35.5,
+            134.2333
+        ],
+        [
+            "Oita",
+            180,
+            33.2333,
+            131.6
+        ],
+        [
+            "Zhejiang",
+            1,
+            29.8782,
+            121.5495
+        ],
+        [
+            "Jiangsu",
+            2,
+            32.0617,
+            118.7778
+        ],
+        [
+            "Land Berlin",
+            1,
+            52.5088,
+            13.3274
+        ],
+        [
+            "Kaohsiung",
+            1,
+            22.6148,
+            120.3139
+        ],
+        [
+            "California",
+            1,
+            37.3388,
+            -121.8914
+        ],
+        [
+            "Hsinchu",
+            1,
+            24.8065,
+            120.9706
+        ],
+        [
+            "Capital Region",
+            1,
+            55.7036,
+            12.4942
+        ]
+  ];
+
+  // Set map definition
+  chart.geodataSource.url = "http://10.206.67.81/" + currentMap + ".json";
+  var new_data = [];
+  var data = [];
+  chart.geodataSource.events.on("parseended", function(ev) {
+    for (var i = 0; i < box_distribution.length; i++) {
+        for (var j = 0; j < ev.target.data.features.length; j++) {
+            if (ev.target.data.features[j].properties['name'] == box_distribution[i][0]) {
+                new_data.push({
+                    id: ev.target.data.features[j].id,
+                    value: box_distribution[i][1]
+                });
+                break;
+            }
+        }
+    }
+    console.log(new_data);
+    polygonSeries.data = new_data;
+    for(var i = 0; i < ev.target.data.features.length; i++) {
+      data.push({
+        id: ev.target.data.features[i].id,
+        value: Math.round( Math.random() * 10000 )
+      })
+    }
+    /*
+    polygonSeries.data = data;
+    */
+    // console.log(ev);
+  })
+
+  //chart.background.fill = am4core.color("#aadaff");
+  // chart.background.fillOpacity = 1;
+  // Set projection
+  chart.projection = new am4maps.projections.Mercator();
+
+  // Create map polygon series
+  var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+  //Set min/max fill color for each area
+  polygonSeries.heatRules.push({
+    property: "fill",
+    target: polygonSeries.mapPolygons.template,
+    // min: chart.colors.getIndex(1).brighten(1),
+    // max: chart.colors.getIndex(1).brighten(-0.3)
+    min: chart.colors.getIndex(2).brighten(3),
+    max: chart.colors.getIndex(2).brighten(-0.4)
+  });
+
+  var a_switch = true;
+  function sleep(time){
+    for( var temp = Date.now(); Date.now() - temp <= time;);
+  }
+  /*
+  setInterval(function() {
+    if (a_switch) {
+      polygonSeries.data = new_data;
+    } else {
+      polygonSeries.data = data;
+    }
+    a_switch = !a_switch;
+    sleep(10);
+  }, 2000);
+  */
+
+  // Make map load polygon data (state shapes and names) from GeoJSON
+  polygonSeries.useGeodata = true;
+
+  // Set up heat legend
+  let heatLegend = chart.createChild(am4maps.HeatLegend);
+  heatLegend.series = polygonSeries;
+  heatLegend.align = "right";
+  heatLegend.width = am4core.percent(25);
+  heatLegend.marginRight = am4core.percent(4);
+  heatLegend.minValue = 0;
+  heatLegend.maxValue = 40000000;
+  heatLegend.valign = "bottom";
+
+  // Set up custom heat map legend labels using axis ranges
+  var minRange = heatLegend.valueAxis.axisRanges.create();
+  minRange.value = heatLegend.minValue;
+  minRange.label.text = "Little";
+  minRange.label.colors = '#ffffff';
+  var maxRange = heatLegend.valueAxis.axisRanges.create();
+  maxRange.value = heatLegend.maxValue;
+  maxRange.label.text = "A lot!";
+
+  // Blank out internal heat legend value axis labels
+  heatLegend.valueAxis.renderer.labels.template.adapter.add("text", function(labelText) {
+    return "";
+  });
+
+  // Configure series tooltip
+  var polygonTemplate = polygonSeries.mapPolygons.template;
+  polygonTemplate.tooltipText = "{name}: {value}";
+  polygonTemplate.nonScalingStroke = true;
+  polygonTemplate.strokeWidth = 0.5;
+
+  // Create hover state and set alternative fill color
+  var hs = polygonTemplate.states.create("hover");
+  hs.properties.fill = chart.colors.getIndex(1).brighten(-0.5);
+};
+}); // end am4core.ready()
+
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
