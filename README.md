@@ -8,6 +8,9 @@
 * [Python中的__all__][88]
 * [Python：包、模块和导入][89]
 
+## 变量
+* [python变量——单下划线和双下划线][90]
+
 ## Python Test
 * [Code coverage measurement for Python][78]
 * [Mocking Redis & Expiration in Python][81]
@@ -263,4 +266,5 @@
 [86]: https://zhuanlan.zhihu.com/p/72887901
 [87]: https://zhuanlan.zhihu.com/p/73568282
 [88]: https://zhuanlan.zhihu.com/p/54274339
-[89]: https://www.toutiao.com/article/6871116680257339915/?log_from=553ba0bf73489_1655884404364
+[89]: https://www.toutiao.com/article/6871116680257339915/?log_from=553ba0bf73489_165588440436490
+[90]: https://zhuanlan.zhihu.com/p/53469919
